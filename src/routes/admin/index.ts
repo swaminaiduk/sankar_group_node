@@ -1,0 +1,26 @@
+import { Router } from 'express';
+import brand from './brand';
+import company from './company';
+import staff from './staff';    
+import group from './group';
+import chat from './chat';
+import upload from './upload';
+// import service from './service';
+// import transaction from './transaction';
+// import points from './points';
+// import home from './home';
+import task from './task';
+const admin: Router = Router();
+
+admin.use('/brand', brand);
+admin.use('/company', company);
+admin.use('/staff', staff);
+admin.use('/group', group);
+admin.use('/chat', chat);
+admin.use('/upload', upload);
+admin.use('/task', task);
+// admin.use('/home', home);
+// admin.use('/service', service);
+// admin.use('/transaction', transaction);
+// admin.use('/points', points);
+export default admin;
