@@ -4,8 +4,8 @@ class TaskRepositorie extends BaseRepositorie {
     constructor() {
         super(Task);
     }  
-    public getTasks = async (whereCond) =>{
-        const taskList = await Task.find({ isCompleted: whereCond }).exec();
+    public getTasks = async (whereCond, emp_id) =>{
+        const taskList = await Task.find({ isCompleted: whereCond,  assignee: { $in: [emp_id]} }).exec();
         return taskList.map((t) => {
             return {
                 id: t._id,

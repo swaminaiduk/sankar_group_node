@@ -4,8 +4,8 @@ class GroupRepositorie extends BaseRepositorie {
     constructor() {
         super(Group);
     }  
-    public distinctGroups = async () => {
-        const groupData = await this.model.aggregate(
+    public distinctGroups = async (emp_id) => {
+        const groupData = await this.model.find({employee_id:'emp_id'}).aggregate(
             [
                 {"$group":  { "_id": { id: '$group_id', group: "$group" } }  }
             ]

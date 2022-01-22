@@ -4,7 +4,7 @@ dotenv.config();
 
 export default {
     APP: process.env.APP || 'development',
-    BASE_URL: process.env.BASE_URL || 'http://localhost:5007',//'https://dosapi.digipe.com',
+    BASE_URL: process.env.BASE_URL || 'http://localhost:5030',//'https://dosapi.digipe.com',
     PORT: '5030',
     DB_DIALECT: process.env.DB_DIALECT || 'mongo',
     DB_HOST: 'mongodb://localhost:27017/sankar_groups',

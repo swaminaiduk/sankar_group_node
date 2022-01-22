@@ -5,7 +5,7 @@ import { catchAsync, pick, successResponse } from '../../utils';
 
 export default class GiftcardController {
     public index = catchAsync(async (req: Request, res: Response): Promise<any> => {
-        const data = await Group.distinctGroups();
+        const data = await Group.distinctGroups(req.params._emp_id);
         return successResponse(res, 'Group list.', data);
     }); 
     public groupOptions = catchAsync(async (req: Request, res: Response): Promise<any> => {

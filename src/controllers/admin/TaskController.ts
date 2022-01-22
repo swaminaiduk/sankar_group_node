@@ -3,11 +3,11 @@ import { StaffRepositorie, TaskRepositorie as Task, TaskChatRepositorie as TaskC
 import { catchAsync, pick, successResponse } from '../../utils';
 export default class GiftcardController {
     public index = catchAsync(async (req: Request, res: Response): Promise<any> => {
-        
         const filter = pick(req.query, []);
         const options = pick(req.query, ['limit', 'page']);
         const whereCond = ( req.query.filter === 'completed' ) ? true : false
-        const tasks = await Task.getTasks(whereCond)
+        const emp_id = req.query.emp_id
+        const tasks = await Task.getTasks(whereCond, emp_id)
         return successResponse(res, 'Task list.', tasks);
     });
     public create = catchAsync(async (req: Request, res: Response): Promise<any> => {
@@ -48,7 +48,7 @@ export default class GiftcardController {
         })
         return successResponse(res, 'Comment posted');
     });
-    
+
     public updateTask = catchAsync(async (req: Request, res: Response): Promise<any> => {
         const reqData = req.body
         const updateStatus = (reqData.status === true || reqData.isCompleted === true) ?  false : true
@@ -56,5 +56,4 @@ export default class GiftcardController {
         const result = await Task.updateById({_id:  reqData.task_id}, {isCompleted: updateStatus})
         return successResponse(res, 'Status updated', result);
     });
-    
-}
+}   
