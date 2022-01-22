@@ -48,6 +48,7 @@ export default class GiftcardController {
         })
         return successResponse(res, 'Comment posted');
     });
+    
     public updateTask = catchAsync(async (req: Request, res: Response): Promise<any> => {
         const reqData = req.body
         const updateStatus = (reqData.status === true || reqData.isCompleted === true) ?  false : true
