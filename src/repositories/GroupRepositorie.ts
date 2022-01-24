@@ -5,11 +5,12 @@ class GroupRepositorie extends BaseRepositorie {
         super(Group);
     }  
     public distinctGroups = async (emp_id) => {
-        const groupData = await this.model.find({employee_id:'emp_id'}).aggregate(
+        const groupData = await this.model.aggregate(
             [
+                { $match: { employee_id: emp_id} },
                 {"$group":  { "_id": { id: '$group_id', group: "$group" } }  }
             ]
-        )
+        ) 
         const data = []
         groupData.map(function(r,i){
             data.push(r._id)
