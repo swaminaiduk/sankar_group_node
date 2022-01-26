@@ -1,4 +1,5 @@
 import { Task } from "../models/task";
+import task from "../routes/admin/task";
 import { BaseRepositorie } from "./BaseRepositorie";
 class TaskRepositorie extends BaseRepositorie {
     constructor() {
@@ -21,6 +22,10 @@ class TaskRepositorie extends BaseRepositorie {
     }
     public getTasksCount = async () =>{
         return await this.model.count()
+    }
+    
+    public getTaskStatus = async (taskId) =>{
+        return await this.model.findOne({isCompleted: true, _id:taskId}).select('isCompleted').exec()
     }
     public getCompletedTasksCount = async () =>{
         return await this.model.count({isCompleted: true})

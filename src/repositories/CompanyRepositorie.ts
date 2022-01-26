@@ -5,6 +5,9 @@ class CompanyRepositorie extends BaseRepositorie {
     constructor() {
         super(Company);
     }
+    public getCompanyNamesByArray = async (companyId) => {
+        return await this.model.find({ _id : { $in : companyId } } ) .select('name')
+    }
     public companyNames = async () => {
         const compList = await Company.find({ status: true }).select(['company']).exec();
         return compList.map((c) => {

@@ -35,9 +35,14 @@ class GroupRepositorie extends BaseRepositorie {
         const empData = await this.model.find({group_id: groupId})
         const data = [];
         empData.map((r,i)=>{
-            data.push({value: r.employee_id, label: r.employee_name})
+            data.push({value: r.employee_id, label: r.employee_name, assigned: true})
         })
         return data;
     }
+
+    public deleteGroupPemployees = async (groupId, staffId) => {
+        return await this.model.deleteOne({group_id: groupId}, {employee_id: staffId})
+    }
+    
 }
 export default new GroupRepositorie();

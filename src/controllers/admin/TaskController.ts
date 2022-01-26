@@ -29,6 +29,7 @@ export default class GiftcardController {
         return successResponse(res, 'Chat list.', taskRes);
     });
     public getTaskComments = catchAsync(async (req: Request, res: Response): Promise<any> => {
+        const status = await Task.getTaskStatus(req.params._taskId)
         const comments = await TaskChat.getTaskComments(req.params._taskId)
         var taskComments = [];
         comments.map(async function(r){
@@ -36,7 +37,7 @@ export default class GiftcardController {
             r.employee_id= staff.name
             taskComments.push(r)
         })
-        return successResponse(res, 'Task Conversation', comments);
+        return successResponse(res, 'Task Conversation', [...comments]);
     });
 
     public newComment = catchAsync(async (req: Request, res: Response): Promise<any> => {

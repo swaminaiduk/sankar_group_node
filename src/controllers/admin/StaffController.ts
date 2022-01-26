@@ -22,7 +22,7 @@ export default class StaffController {
         }))
         return successResponse(res, 'Staff list.', data);
     });
-    public  companyBrandEmployees = catchAsync(async (req: Request, res: Response): Promise<any> => {
+    public companyBrandEmployees = catchAsync(async (req: Request, res: Response): Promise<any> => {
         const data = await Staff.companyBrandEmployees(req.body.company, req.body.brand);
         return successResponse(res, 'Employee list.', data);
     });
@@ -62,11 +62,13 @@ export default class StaffController {
             'mobile' : requestData.mobile,  
             'role' : requestData.role,
             'status' : true, 
+            'company': requestData.company,
             'company1': requestData?.company[0],
             'company2' : requestData?.company[1],
             'company3': requestData?.company[2],
             'company4': requestData?.company[3],
             'company5' : requestData?.company[4], 
+            'brand': requestData?.brand,
             'brand1' : requestData?.brand[0], 
             'brand2' : requestData?.brand[1],
             'brand3' : requestData?.brand[2], 

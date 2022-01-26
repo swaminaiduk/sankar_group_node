@@ -3,8 +3,6 @@ import { model } from 'mongoose';
 import { paginate, toJSON } from '../plugins';
 import { Company, CompanyDocument } from '../company';
 export type StaffModel = mongoose.Document & {
-    company: CompanyDocument,
-    brand: string,
     name: string,
     mobile: string,
     email: string,
@@ -17,6 +15,8 @@ export type StaffModel = mongoose.Document & {
 
 const staffSchema: mongoose.Schema = new mongoose.Schema(
     { 
+        company: {type: Array},
+        brand: {type: Array},
         company1: {type: String,required: true, ref: Company,},
         company2: {type: String,required: false, ref: Company,},
         company3: {type: String,required: false, ref: Company,},

@@ -12,6 +12,6 @@ export default class MccController {
     public create = catchAsync(async (req: Request, res: Response): Promise<any> => {
         await Chat.create(pick(req.body, ['group_id', 'sender_name', 'senderId','message']));
         const data:any = await Chat.getChat(req.body.group_id);
-        return successResponse(res, 'Chat list.', data);
+        return successResponse(res, 'Chat list.', req.body.group_id );
     });
 }

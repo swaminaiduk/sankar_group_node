@@ -5,6 +5,8 @@ class StaffRepositorie extends BaseRepositorie {
     constructor() {
         super(Staff);
     } 
+    
+    
     public getAllEmployeeList = async () => {
         return await this.model.find({status: true}) .select('name')
     }
@@ -18,16 +20,29 @@ class StaffRepositorie extends BaseRepositorie {
         return await this.model.find({status: true,mobile: mobile,mpin: mpin}).exec() 
     }
     public companyBrandEmployees = async (company, brand) => {
-        const data = await this.model.find(
-            {company1: company},
-            {brand1: brand})
-            .select('name').exec()
+        // const data = await this.model.find({company1: company},{brand1: brand}).select('name').exec()
+        const data = await this.model.find({statu:true}).select('name').exec()
+         
             return data.map((c) => {
-                return {
-                    value: c._id,
-                    label: c.name
-                };
+                if(c.name){
+                    return {
+                        value: c._id,
+                        label: `${c.name}`
+                    };
+                }
             })
     }
+    public getUnGroupPemployees = async (assignedEmp) => {
+        const data = await this.model.find({ _id : { $nin :assignedEmp } }).select('name').exec()
+            return data.map((c) => {
+                if(c.name){
+                    return {
+                        value: c._id,
+                        label: `${c.name}`
+                    };
+                }
+            })
+    }
+    
 }
 export default new StaffRepositorie();
