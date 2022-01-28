@@ -5,4 +5,5 @@ import StaffRepositorie from './StaffRepositorie';
 import GroupRepositorie from './GroupRepositorie';
 import TaskRepositorie from './TaskRepositorie';  
 import TaskChatRepositorie from './TaskChatRepositorie';  
-export { Company, Brand, StaffRepositorie, GroupRepositorie, ChatRepositorie, TaskRepositorie, TaskChatRepositorie};
+import MediaRepositorie from './MediaRepositorie';  
+export { Company, Brand, StaffRepositorie, GroupRepositorie, ChatRepositorie, TaskRepositorie, TaskChatRepositorie, MediaRepositorie};

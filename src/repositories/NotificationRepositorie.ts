@@ -1,10 +1,10 @@
-import { Notification } from "../models/notification";
+import { Media } from "../models/media";
 import { BaseRepositorie } from "./BaseRepositorie";
 import UserDetails from '../models/UserDetails';
 import config from '../config/app'
 class NotificationRepositorie extends BaseRepositorie {
     constructor() {
-        super(Notification);
+        super(Media);
     }
 
     public getUpcomingSchedule = async () => {

@@ -5,4 +5,5 @@ import GroupController from './GroupController';
 import ChatController from './ChatController';
 import ImageController from './ImageController';
 import TaskController from './TaskController';
-export {ImageController, CompanyController, BrandController, StaffController, GroupController, ChatController, TaskController }
+import MediaController from './MediaController';
+export {ImageController, CompanyController, BrandController, StaffController, GroupController, ChatController, TaskController, MediaController  }
