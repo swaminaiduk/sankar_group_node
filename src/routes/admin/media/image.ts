@@ -12,11 +12,11 @@ const storage = multer.diskStorage({
         cb(null, `${new Date().getTime()}_${Math.random().toString(36).substring(7)}_${file.originalname}`);
     }
 });
-
 const upload = multer({ storage: storage });
 const image: Router = Router();
 const controller = new MediaController();
 image.get('/', controller.index);
 image.post('/', upload.single('image'), controller.upload);
-image.delete('/:_id', upload.single('image'), controller.deleteById);
+// image.post('/', upload.array("image", 2), controller.upload);
+image.delete('/:_id', controller.deleteById);
 export default image;
