@@ -8,6 +8,7 @@ export type CompanyModel = mongoose.Document & {
     city: string,
     branch: string,
     status: boolean,
+    logo: string,
     paginate(filter, options)
 }
 
@@ -28,6 +29,10 @@ const companySchema: mongoose.Schema = new mongoose.Schema(
             type: String,
             required: true,
             trim: true
+        }, 
+        logo: {
+            type: String,
+            required: false
         },        
         status: {
             type: Boolean,

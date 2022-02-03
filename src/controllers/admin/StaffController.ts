@@ -1,5 +1,6 @@
 import { Request, response, Response } from 'express';
-import { StaffRepositorie as Staff, Company, Brand, TaskRepositorie as Task, TaskRepositorie } from '../../repositories';
+// import { Group } from '../../models/group';
+import { StaffRepositorie as Staff, Company, Brand, TaskRepositorie as Task, TaskRepositorie, GroupRepositorie as Group } from '../../repositories';
 import { catchAsync, pick, successResponse } from './../../utils';
 var mongodb = require('mongodb');
 export default class StaffController {
@@ -34,6 +35,9 @@ export default class StaffController {
         else
         return successResponse(res, 'Something went wrong');
     });
+    public upload = catchAsync(async (req: Request, res: Response): Promise<any> => {
+        return successResponse(res, 'file uploaded successfully', req.file.filename);
+    });
     public empList = catchAsync(async (req: Request, res: Response): Promise<any> => {
         const data = await Staff.getAllEmployeeList();
         const newArray = data.map(item => {
@@ -42,12 +46,16 @@ export default class StaffController {
         return successResponse(res, 'Staff list.', newArray);
     });
     public dashboard = catchAsync(async (req: Request, res: Response): Promise<any> => {
-        const staff = await Staff.emoployeeCount();
+        const companyCnt = await Company.getCount();
         const brand = await Brand.brandCount();
+        const staff = await Staff.emoployeeCount();
+        const groupCnt = await Group.getCount();
         const task = await TaskRepositorie.getTasksCount();
         const completedTask = await TaskRepositorie.getCompletedTasksCount();
         const pendingTask = await TaskRepositorie.getPendingTasksCount();
-        return successResponse(res, 'Staff list.', {staff: staff, brand: brand, task: task, completedTask: completedTask, pendingTask: pendingTask});
+        console.log(groupCnt)
+        
+        return successResponse(res, 'Staff list.', {companyCnt: companyCnt, staff: staff, brand: brand, task: task, groupCnt: groupCnt, completedTask: completedTask, pendingTask: pendingTask});
     });
     public findById = catchAsync(async (req: Request, res: Response): Promise<any> => {
         const id = pick(req.params, ['_id']);
@@ -75,7 +83,8 @@ export default class StaffController {
             'brand4' : requestData?.brand[3], 
             'brand5' : requestData?.brand[4],
             'email' : requestData.email,
-            'designation': requestData.designation
+            'designation': requestData.designation,
+            'logo': requestData.logo
         });
         return successResponse(res, 'Staff data has been successfully created.', data);
     });

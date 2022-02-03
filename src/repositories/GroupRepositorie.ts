@@ -43,6 +43,9 @@ class GroupRepositorie extends BaseRepositorie {
     public deleteGroupPemployees = async (groupId, staffId) => {
         return await this.model.deleteOne({group_id: groupId}, {employee_id: staffId})
     }
+    public getCount = async () => {
+        return await this.model.distinct('group_id').count()
+    }
     
 }
 export default new GroupRepositorie();

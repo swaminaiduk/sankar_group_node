@@ -14,7 +14,7 @@ export default class BrandController {
         return successResponse(res, 'Brand list.', data);
     });
     public create = catchAsync(async (req: Request, res: Response): Promise<any> => {
-        const data = await Brand.create(pick(req.body, ['brand']));
+        const data = await Brand.create(pick(req.body, ['brand', 'logo']));
         return successResponse(res, 'Brand has been successfully created.', data);
     });
     public updateById = catchAsync(async (req: Request, res: Response): Promise<any> => {
@@ -27,5 +27,14 @@ export default class BrandController {
         const id = pick(req.params, ['_id']);
         await Brand.deleteById(id);
         return successResponse(res, 'Brand has been removed successfully', null);
+    });
+    public statusChange = catchAsync(async (req: Request, res: Response): Promise<any> => {
+        const id = pick(req.params, ['_id']);
+        const data = pick(req.body, ['status']);
+        await Brand.updateById(id, data);
+        return successResponse(res, 'Brand status has been successfully updated.', data);
+    });
+    public upload = catchAsync(async (req: Request, res: Response): Promise<any> => {
+        return successResponse(res, 'file uploaded successfully', req.file.filename);
     });
 }

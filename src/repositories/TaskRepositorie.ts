@@ -33,6 +33,12 @@ class TaskRepositorie extends BaseRepositorie {
     public getPendingTasksCount = async () =>{
         return await this.model.count({isCompleted: false})
     }
+    public groupCompletedTasks = async (groupId) =>{
+        return await this.model.count({isCompleted: true, group: groupId})
+    }
+    public groupPendingTasks = async (groupId) =>{
+        return await this.model.count({isCompleted: false, group: groupId})
+    }
 }
 
 export default new TaskRepositorie();

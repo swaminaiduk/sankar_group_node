@@ -21,10 +21,8 @@ export default {
     MSG91_SENDER_ID: process.env.MSG91_SENDER_ID || 'DIGIPE',
     
     IMAGE_PATH: process.env.IMAGE_PATH || 'images',
-    // smtp details
     MAIL_HOST: process.env.MAIL_HOST || 'mail.digipe.in',
     PORT_NO: process.env.PORT_NO || '465',
     MAIL_USER: process.env.MAIL_USER || 'reports@digipe.in',
     MAIL_PASSWORD: process.env.MAIL_PASSWORD || 'rdigi@1q2w',
-
 };

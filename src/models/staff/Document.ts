@@ -6,5 +6,8 @@ export default interface Document extends MDocument {
     department: string,
     designation: string,
     status: boolean,
-    company: array
+    company: array,
+    personal_email: string,
+    personal_mobile: number,
+    logo: string
 };

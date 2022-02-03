@@ -4,6 +4,7 @@ import { paginate, toJSON } from '../plugins';
 
 export type BrandModel = mongoose.Document & {
     brand: string,
+    logo: string,
     status: boolean,
     paginate(filter, options)
 }
@@ -13,6 +14,10 @@ const brandSchema: mongoose.Schema = new mongoose.Schema(
         brand: {
             type: String,
             required: true,
+        },
+        logo: {
+            type: String,
+            default: ''
         },
         status: {
             type: Boolean,

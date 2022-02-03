@@ -9,6 +9,8 @@ export type StaffModel = mongoose.Document & {
     mpin: string,
     role: string,
     designation: string,
+    personal_email: string,
+    personal_mobile: number,
     status: boolean,
     paginate(filter, options)
 }
@@ -17,6 +19,9 @@ const staffSchema: mongoose.Schema = new mongoose.Schema(
     { 
         company: {type: Array},
         brand: {type: Array},
+        personal_email: {type: String},
+        personal_mobile: {type: Number},
+        logo: {type: String},
         company1: {type: String,required: true, ref: Company,},
         company2: {type: String,required: false, ref: Company,},
         company3: {type: String,required: false, ref: Company,},

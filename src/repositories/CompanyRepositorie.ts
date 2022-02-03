@@ -21,5 +21,8 @@ class CompanyRepositorie extends BaseRepositorie {
         const companyName = await this.model.find(filter).select('company').exec()
         return companyName[0]?.company
     }
+    public getCount = async () => {
+        return await this.model.count()
+    }
 }
 export default new CompanyRepositorie();
