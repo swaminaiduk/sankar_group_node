@@ -11,6 +11,7 @@ export type StaffModel = mongoose.Document & {
     designation: string,
     personal_email: string,
     personal_mobile: number,
+    passowrd: string,
     status: boolean,
     paginate(filter, options)
 }
@@ -21,6 +22,7 @@ const staffSchema: mongoose.Schema = new mongoose.Schema(
         brand: {type: Array},
         personal_email: {type: String},
         personal_mobile: {type: Number},
+        passowrd: {type: String},
         logo: {type: String},
         company1: {type: String,required: true, ref: Company,},
         company2: {type: String,required: false, ref: Company,},

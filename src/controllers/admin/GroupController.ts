@@ -39,6 +39,7 @@ export default class GiftcardController {
         return successResponse(res, 'Group Employees list.', data);
     }); 
     
+    
     public create = catchAsync(async (req: Request, res: Response): Promise<any> => {
         const reqData = req.body
         var data;
@@ -47,10 +48,13 @@ export default class GiftcardController {
             data = await Group.create({
                 group:reqData.group,
                 company:reqData.company,
+                about:reqData.about,
+                description:reqData.description,
                 brand:reqData.brand,
                 employee_name:reqData?.assignee[i]?.label,
                 employee_id:reqData?.assignee[i]?.value,
-                group_id: group_id
+                group_id: group_id,
+                logo: reqData?.logo
             });
         }
         if(data)

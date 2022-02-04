@@ -8,7 +8,7 @@ class GroupRepositorie extends BaseRepositorie {
         const groupData = await this.model.aggregate(
             [
                 { $match: { employee_id: emp_id} },
-                {"$group":  { "_id": { id: '$group_id', group: "$group" } }  }
+                {"$group":  { "_id": { id: '$group_id', group: "$group", logo: "$logo", about: "$about", description: "$description" } }  }
             ]
         ) 
         const data = []
@@ -45,7 +45,7 @@ class GroupRepositorie extends BaseRepositorie {
     }
     public getCount = async () => {
         return await this.model.distinct('group_id').count()
-    }
+    } 
     
 }
 export default new GroupRepositorie();

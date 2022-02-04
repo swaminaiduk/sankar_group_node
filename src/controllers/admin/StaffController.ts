@@ -3,8 +3,10 @@ import { Request, response, Response } from 'express';
 import { StaffRepositorie as Staff, Company, Brand, TaskRepositorie as Task, TaskRepositorie, GroupRepositorie as Group } from '../../repositories';
 import { catchAsync, pick, successResponse } from './../../utils';
 var mongodb = require('mongodb');
+const nodemailer = require("nodemailer");
 export default class StaffController {
     public index =  catchAsync(async (req: Request, res: Response): Promise<any> => {
+
         const filter = pick(req.query, []);
         const options = pick(req.query, ['limit', 'page']);
         const data = await Staff.query(filter, options);
@@ -65,6 +67,7 @@ export default class StaffController {
 
     public create = catchAsync(async (req: Request, res: Response): Promise<any> => {
         var requestData = req.body
+        const password = Math.floor(1000 + Math.random() * 9000)
         const data = await Staff.create({
             'name' : requestData.name,  
             'mobile' : requestData.mobile,  
@@ -83,9 +86,35 @@ export default class StaffController {
             'brand4' : requestData?.brand[3], 
             'brand5' : requestData?.brand[4],
             'email' : requestData.email,
+            'personal_email' : requestData.personal_email,
+            'personal_mobile' : requestData.personal_mobile,
             'designation': requestData.designation,
-            'logo': requestData.logo
+            'logo': requestData.logo,
+            'password': password,
+            'mpin': password
         });
+        if(data){
+            // send mail 
+        let testAccount = await nodemailer.createTestAccount();
+        let transporter = nodemailer.createTransport({
+            host: "smtp.ethereal.email",
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+              user: testAccount.user, // generated ethereal user
+              pass: testAccount.pass, // generated ethereal password
+            },
+          });
+          let info = await transporter.sendMail({
+            from: '"Sankar Groups" <digipefintech@gmail.com>', // sender address
+            to: requestData.email, // list of receivers
+            subject: "Welcome to Sankar Groups", // Subject line
+            text: "Sankar groups", // plain text body
+            html: "<b>Hello "+requestData?.name+"</b><br/><br/> Sankar Groups login Password is: "+password, 
+          });
+          console.log("Message sent: %s", info.messageId);
+          console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+        }
         return successResponse(res, 'Staff data has been successfully created.', data);
     });
     

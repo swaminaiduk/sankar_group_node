@@ -16,4 +16,8 @@ export default class MccController {
         const data:any = await Chat.getChat(req.body.group_id);
         return successResponse(res, 'Chat list.', req.body.group_id );
     });
+    public groupMedia = catchAsync(async (req: Request, res: Response): Promise<any> => {
+        const data = await Chat.getMedia(req.params. group_id);
+        return successResponse(res, 'Group Media list.', data);
+    }); 
 }

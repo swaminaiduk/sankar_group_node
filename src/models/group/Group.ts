@@ -9,6 +9,7 @@ export type GroupModel = mongoose.Document & {
     brand: string,
     employee_name: string,
     employee_id: string,
+    logo: string,
     status: boolean,
     paginate(filter, options)
 }
@@ -17,6 +18,14 @@ const groupSchema: mongoose.Schema = new mongoose.Schema(
         group: {
             type: String,
             required: true,
+        },
+        about: {
+            type: String,
+            required: false,
+        },
+        description: {
+            type: String,
+            required: false,
         },
         group_id: {
             type: String,
@@ -35,6 +44,10 @@ const groupSchema: mongoose.Schema = new mongoose.Schema(
             required: false,
         },
         employee_id: {
+            type: String,
+            required: false,
+        },
+        logo: {
             type: String,
             required: false,
         },

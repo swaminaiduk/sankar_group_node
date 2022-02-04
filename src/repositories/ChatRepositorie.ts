@@ -8,6 +8,9 @@ class ChatRepositorie extends BaseRepositorie {
     public getChat = async (group_id) => {
         return await this.model.find({'group_id': group_id})
     }
+    public getMedia = async (group_id) => {
+        return await this.model.find({'group_id': group_id, file: { $exists: true, $ne: "" }}).select('file')
+    }
 }
 
 export default new ChatRepositorie();

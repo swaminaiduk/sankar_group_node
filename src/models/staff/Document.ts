@@ -9,5 +9,6 @@ export default interface Document extends MDocument {
     company: array,
     personal_email: string,
     personal_mobile: number,
-    logo: string
+    logo: string,
+    password: string
 };

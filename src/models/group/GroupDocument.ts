@@ -5,5 +5,6 @@ export default interface GroupDocument extends MDocument {
     brand: string,
     employee_name: string,
     employee_id: string,
+    logo: string,
     status: boolean,
 };
