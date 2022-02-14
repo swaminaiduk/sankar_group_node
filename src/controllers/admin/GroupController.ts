@@ -1,7 +1,8 @@
 import { group } from 'console';
 import { Request, Response } from 'express';
-import { GroupRepositorie as Group, StaffRepositorie as Staff } from '../../repositories';
+import { GroupRepositorie as Group, StaffRepositorie as Staff, Company } from '../../repositories';
 import { catchAsync, pick, successResponse } from '../../utils';
+var mongodb = require('mongodb');
 
 export default class GiftcardController {
     public index = catchAsync(async (req: Request, res: Response): Promise<any> => {
@@ -9,7 +10,6 @@ export default class GiftcardController {
         return successResponse(res, 'Group list1.', data);
     }); 
     public groupOptions = catchAsync(async (req: Request, res: Response): Promise<any> => {
-        console.log('test')
         const data = await Group.distinctGroupOptions();
         return successResponse(res, 'Group option list.', data);
     });
@@ -45,9 +45,12 @@ export default class GiftcardController {
         var data;
         const group_id = Math.floor(Math.random() * 99999999) + 1
         for(var i=0; i < reqData.assignee.length; i++){
-            data = await Group.create({
+            // get company Name
+            const companyName = await Company.getCompanyName({_id:mongodb.ObjectId(reqData.company)})
+                data = await Group.create({
                 group:reqData.group,
                 company:reqData.company,
+                company_name:companyName,
                 about:reqData.about,
                 description:reqData.description,
                 brand:reqData.brand,

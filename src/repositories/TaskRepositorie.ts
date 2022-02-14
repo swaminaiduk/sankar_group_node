@@ -1,5 +1,5 @@
 import { Task } from "../models/task";
-import task from "../routes/admin/task";
+import { GroupRepositorie as Group } from '../repositories';
 import { BaseRepositorie } from "./BaseRepositorie";
 class TaskRepositorie extends BaseRepositorie {
     constructor() {
@@ -7,7 +7,9 @@ class TaskRepositorie extends BaseRepositorie {
     }  
     public getTasks = async (whereCond, emp_id) =>{
         const taskList = await Task.find({ isCompleted: whereCond,  assignee: { $in: [emp_id]} }).exec();
-        return taskList.map((t) => {
+        return await Promise.all(taskList.map(async (t) => {
+            const groupName:any = await Group.getName(t.group);
+            const companyName:any = await Group.getCompanyName(t.group);
             return {
                 id: t._id,
                 dueDate: t.dueDate,
@@ -16,9 +18,10 @@ class TaskRepositorie extends BaseRepositorie {
                 isCompleted: t.isCompleted,
                 isImportant: t.isImportant,
                 assignee: t.assignee,
-                // assignee: {'fullName':'swami'},
+                groupId: groupName,
+                company_name: companyName
             };
-        })
+        }))
     }
     public getTasksCount = async () =>{
         return await this.model.count()

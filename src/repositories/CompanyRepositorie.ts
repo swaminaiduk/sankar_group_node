@@ -24,5 +24,6 @@ class CompanyRepositorie extends BaseRepositorie {
     public getCount = async () => {
         return await this.model.count()
     }
+    
 }
 export default new CompanyRepositorie();

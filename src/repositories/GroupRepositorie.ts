@@ -1,5 +1,6 @@
 import { Group } from "../models/group";
 import { BaseRepositorie } from "./BaseRepositorie";
+var mongodb = require('mongodb');
 class GroupRepositorie extends BaseRepositorie {
     constructor() {
         super(Group);
@@ -46,6 +47,16 @@ class GroupRepositorie extends BaseRepositorie {
     public getCount = async () => {
         return await this.model.distinct('group_id').count()
     } 
-    
+    public getName = async (groupId) => {
+        const groupDet = await this.model.findOne({group_id: groupId}).select('group')
+        return groupDet?.group
+    }
+    public getCompanyName = async (groupId) => {
+        const groupDet = await this.model.findOne({group_id: groupId}).select('company_name')
+        return groupDet?.company_name
+    }
+    public getCompanyId = async (groupId) => {
+        return await this.model.findOne({group_id: groupId}).select('company')
+    } 
 }
 export default new GroupRepositorie();

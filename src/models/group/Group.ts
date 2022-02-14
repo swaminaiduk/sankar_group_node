@@ -6,6 +6,7 @@ export type GroupModel = mongoose.Document & {
     group: string,
     group_id: string,
     company: string,
+    company_name: string,
     brand: string,
     employee_name: string,
     employee_id: string,
@@ -32,6 +33,10 @@ const groupSchema: mongoose.Schema = new mongoose.Schema(
             required: true,
         },
         company: {
+            type: String,
+            required: false,
+        },
+        company_name: {
             type: String,
             required: false,
         },

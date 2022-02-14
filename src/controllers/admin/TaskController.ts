@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { StaffRepositorie, TaskRepositorie as Task, TaskChatRepositorie as TaskChat} from '../../repositories';
+import { StaffRepositorie, TaskRepositorie as Task, TaskChatRepositorie as TaskChat, GroupRepositorie} from '../../repositories';
 import { catchAsync, pick, successResponse } from '../../utils';
 export default class GiftcardController {
     public index = catchAsync(async (req: Request, res: Response): Promise<any> => {
@@ -12,6 +12,8 @@ export default class GiftcardController {
     });
     public create = catchAsync(async (req: Request, res: Response): Promise<any> => {
         const reqData = req.body
+        const companyName = await GroupRepositorie.getCompanyId(reqData.group)
+
         const taskRes = await Task.create({
             assignee: reqData.assignee,
             title:  reqData.title,
@@ -20,6 +22,7 @@ export default class GiftcardController {
             isCompleted:  reqData.isCompleted,
             isImportant:  reqData.isImportant,
             priority:  reqData.tags,
+            company: companyName,
         });
         await TaskChat.create({
             task_id:  taskRes._id,
