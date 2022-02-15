@@ -7,6 +7,18 @@ import * as path from "path";
 import { internalServerError, notFound } from './exceptions';
 import routes from './routes';
 import config from './config/app';
+const corsOpts = {
+  origin: '*',
+
+  methods: [
+    'GET',
+    'POST',
+  ],
+
+  allowedHeaders: [
+    'Content-Type',
+  ],
+};
 class App {
   public express: express.Application;
   constructor() {
@@ -17,7 +29,7 @@ class App {
   }
 
   private setMiddlewares(): void {
-    this.express.use(cors());
+    this.express.use(cors(corsOpts));
     this.express.use(morgan('dev'));
     this.express.use(bodyParser.json());
     this.express.use(express.json());

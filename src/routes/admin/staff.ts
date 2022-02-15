@@ -2,7 +2,6 @@ import {Router} from 'express'
 import {StaffController} from '../../controllers/admin'
 // import { exists } from '../../validations/staff'; 
 
-
 import * as multer from 'multer';
 import * as path from "path";
 import config from '../../config/app';

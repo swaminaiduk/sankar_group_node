@@ -3,7 +3,7 @@ import config from '../config/app';
 
 const VerifyToken = async (req, res, next): Promise<any> => {
   // check header or url parameters or post parameters for token
-  const token: string = req.headers.authorization?.split(' ')[1];
+  /*const token: string = req.headers.authorization?.split(' ')[1];
 
   if (!token) {
     return res.status(403).json({ auth: false, message: 'No token provided.' });
@@ -16,7 +16,7 @@ const VerifyToken = async (req, res, next): Promise<any> => {
     next();
   } catch (err) {
     res.status(500).json({ auth: false, message: err });
-  }
+  }*/
 };
 
 export default VerifyToken;
