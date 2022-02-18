@@ -5,7 +5,6 @@ import status from '../../../validations/status';
 
 import * as multer from 'multer';
 import * as path from "path";
-import config from '../../../config/app';
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, path.join(path.resolve('./'), 'public/images/'));
@@ -22,9 +21,9 @@ const controller = new CompanyController();
 company.post('/upload', upload.single('logo'), controller.upload);
 company.get('/', controller.index);
 company.get('/names', controller.names);
-company.get('/:_id', exists, controller.findById);
+company.get('/:_id',   controller.findById);
 company.post('/', upload.single('logo'), controller.create);
-company.patch('/:_id', exists, validation, controller.updateById);
-company.patch('/status/change/:_id', exists, status, controller.statusChange);
-company.delete('/:_id', exists, controller.deleteById);
+company.post('/:_id', controller.updateById);
+company.patch('/status/change/:_id',   status, controller.statusChange);
+company.delete('/:_id', controller.deleteById);
 export default company;

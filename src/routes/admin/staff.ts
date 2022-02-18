@@ -20,6 +20,7 @@ const controller = new StaffController
 staff.post('/upload', upload.single('logo'), controller.upload);
 staff.post('/login', controller.login)
 staff.get('/emplist', controller.empList)
+staff.get('/:_id', controller.findById);
 staff.get('/', controller.index)
 staff.post('/',  controller.create);
 staff.get('/dashboard',  controller.dashboard);

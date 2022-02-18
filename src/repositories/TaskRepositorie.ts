@@ -6,7 +6,7 @@ class TaskRepositorie extends BaseRepositorie {
         super(Task);
     }  
     public getTasks = async (whereCond, emp_id) =>{
-        const taskList = await Task.find({ isCompleted: whereCond,  assignee: { $in: [emp_id]} }).exec();
+        const taskList = await Task.find({ ...whereCond,  assignee: { $in: [emp_id]} }).exec();
         return await Promise.all(taskList.map(async (t) => {
             const groupName:any = await Group.getName(t.group);
             const companyName:any = await Group.getCompanyName(t.group);

@@ -19,7 +19,7 @@ export default class BrandController {
     });
     public updateById = catchAsync(async (req: Request, res: Response): Promise<any> => {
         const id = pick(req.params, ['_id']);
-        const data = pick(req.body, ['name', 'status']);
+        const data = pick(req.body, ['brand']);
         await Brand.updateById(id, data);
         return successResponse(res, 'Brand data has been successfully updated.', data);
     });
@@ -35,6 +35,13 @@ export default class BrandController {
         return successResponse(res, 'Brand status has been successfully updated.', data);
     });
     public upload = catchAsync(async (req: Request, res: Response): Promise<any> => {
+        if(req?.body?.id)
+        await Brand.updateById({id: req?.body?.id}, {logo: req.file.filename});
         return successResponse(res, 'file uploaded successfully', req.file.filename);
+    });
+    public findById = catchAsync(async (req: Request, res: Response): Promise<any> => {
+        const id = pick(req.params, ['_id']);
+        const data = await Brand.findById(id);
+        return successResponse(res, 'brand data.', data);
     });
 }

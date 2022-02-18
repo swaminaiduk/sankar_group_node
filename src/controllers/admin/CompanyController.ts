@@ -27,9 +27,9 @@ export default class CompanyController {
 
     public updateById = catchAsync(async (req: Request, res: Response): Promise<any> => {
         const id = pick(req.params, ['_id']);
-        const data = pick(req.body, ['name', 'status']);
+        const data = pick(req.body, ['company', 'city', 'branch']);
         await Company.updateById(id, data);
-        return successResponse(res, 'Category data has been successfully updated.', data);
+        return successResponse(res, 'Company has been successfully updated.', data);
     });
 
     public deleteById = catchAsync(async (req: Request, res: Response): Promise<any> => {
@@ -46,6 +46,8 @@ export default class CompanyController {
     });
 
     public upload = catchAsync(async (req: Request, res: Response): Promise<any> => {
+        if(req?.body?.id)
+        await Company.updateById({id: req?.body?.id}, {logo: req.file.filename});
         return successResponse(res, 'file uploaded successfully', req.file.filename);
     });
 }

@@ -5,15 +5,15 @@ export default class GiftcardController {
     public index = catchAsync(async (req: Request, res: Response): Promise<any> => {
         const filter = pick(req.query, []);
         const options = pick(req.query, ['limit', 'page']);
-        const whereCond = ( req.query.filter === 'completed' ) ? true : false
-        const emp_id = req.query.emp_id
-        const tasks = await Task.getTasks(whereCond, emp_id)
+        const completedVal = (req.query.filter === 'completed') ? true : false
+        const titleQry: any = (req?.query?.q) ?  req.query.q : ''
+        const whereCond = (req?.query?.q) ? {isCompleted: completedVal, title: new RegExp(titleQry,  'i')} : {isCompleted: completedVal}
+        const tasks = await Task.getTasks(whereCond,  req.query.emp_id)
         return successResponse(res, 'Task list.', tasks);
     });
     public create = catchAsync(async (req: Request, res: Response): Promise<any> => {
         const reqData = req.body
         const companyName = await GroupRepositorie.getCompanyId(reqData.group)
-
         const taskRes = await Task.create({
             assignee: reqData.assignee,
             title:  reqData.title,
@@ -27,7 +27,7 @@ export default class GiftcardController {
         await TaskChat.create({
             task_id:  taskRes._id,
             employee_id:  reqData.employee_id,
-            description:  reqData.description,
+            description:  (reqData?.description) ? reqData?.description : 'Date: ',
         })
         return successResponse(res, 'Chat list.', taskRes);
     });
