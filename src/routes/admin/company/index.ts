@@ -15,7 +15,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-
 const company: Router = Router();
 const controller = new CompanyController();
 company.post('/upload', upload.single('logo'), controller.upload);
